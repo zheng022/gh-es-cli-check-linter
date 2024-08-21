@@ -39,6 +39,11 @@ jobs:
 
           echo "no error from iversion::3.14.0.gm2"
           
+          cleaned_version=$(echo "$version" | tr -cd 'a-zA-Z0-9.')
+          echo "::extract name=version::$cleaned_version"
+
+          echo "no error from cleaned_version"
+
           echo "::extract name=version::$version"
   
   trigger_test:
