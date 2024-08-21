@@ -21,6 +21,12 @@ jobs:
           version=$(echo $ISSUE_BODY | grep -oP '\b\d+\.\d+\.\d+(\.pre|\.gm|\.rc)\d+\b' | head -n 1)
           echo $version
 
+          if [[ "$string" =~ ^[a-zA-Z0-9.]+$ ]]; then
+              echo "The string contains only alphabets, numbers, and dots."
+          else
+              echo "The string contains other characters."
+          fi
+
           v='3.14.0.gm2'
 
           echo $v >> $GITHUB_OUTPUT
@@ -29,7 +35,7 @@ jobs:
 
           echo "::extract name=iversion::3.14.0.gm2"
 
-          echo "no error from version::3.14.0.gm2"
+          echo "no error from iversion::3.14.0.gm2"
           
           echo "::extract name=version::$version"
   
