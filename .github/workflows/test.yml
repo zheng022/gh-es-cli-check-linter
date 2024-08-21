@@ -20,4 +20,14 @@ jobs:
           echo $ISSUE_BODY | grep -oP '\b\d+\.\d+\.\d+(\.pre|\.gm|\.rc)\d+\b' | head -n 1 
           version=$(echo $ISSUE_BODY | grep -oP '\b\d+\.\d+\.\d+(\.pre|\.gm|\.rc)\d+\b' | head -n 1)
           echo $version
+
+          # Check for leading spaces or newlines
+          if [[ "$version" != "${version#"${version%%[![:space:]]*}"}" ]]; then
+              echo "The string has leading spaces or newlines."
+          fi
+          
+          # Check for trailing spaces or newlines
+          if [[ "$version" != "${version%"${version##*[![:space:]]}"}" ]]; then
+              echo "The string has trailing spaces or newlines."
+          fi
           echo $version >> $GITHUB_OUTPUT
