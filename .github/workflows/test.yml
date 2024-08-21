@@ -28,21 +28,16 @@ jobs:
               other_chars=$(echo "$version" | tr -d 'a-zA-Z0-9.' | tr -d '\n' | fold -w1 | sort -u | tr -d '\n')
               echo "Other characters: $other_chars"
           fi
-
-          v='3.14.0.gm2'
-
-          echo $v >> $GITHUB_OUTPUT
-
-          echo "no error from v"
-
-          echo "::extract name=iversion::3.14.0.gm2"
-
-          echo "no error from iversion::3.14.0.gm2"
           
-          cleaned_version=$(echo "$version" | tr -cd 'a-zA-Z0-9.')
+          cleaned_version=$(echo "$version" | tr -cd 'a-z0-9.')
+          echo $cleaned_version
           echo "::extract name=version::$cleaned_version"
 
           echo "no error from cleaned_version"
+
+          echo $cleaned_version >> $GITHUB_OUTPUT
+
+          echo "no error from GITHUB_OUTPUT"
 
           echo "::extract name=version::$version"
   
