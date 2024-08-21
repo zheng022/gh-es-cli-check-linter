@@ -17,15 +17,15 @@ jobs:
         env:
           ISSUE_BODY: ${{ github.event.issue.body }}
         run: |
-          echo $ISSUE_BODY | grep -oP '\b\d+\.\d+\.\d+(\.pre|\.gm|\.rc)\d+\b' | head -n 1 
-          version=$(echo "${{ github.event.issue.body }}" | grep -oP '\b\d+\.\d+\.\d+(\.pre|\.gm|\.rc)\d+\b' | head -n 1)
-          echo $version
+          echo "version=$(echo '${{ github.event.issue.body }}' | grep "The latest build is" | grep -oP '\b\d+\.\d+\.\d+(\.pre|\.gm|\.rc)\d+\b' | awk '{print $1}')" >> $GITHUB_OUTPUT
+          # version=$(echo '${{ github.event.issue.body }}' | grep -oP '\b\d+\.\d+\.\d+(\.pre|\.gm|\.rc)\d+\b' | head -n 1)
+          # echo $version
   
           
-          echo "::extract name=version::$version"
-          echo "no error from ::extract"
-          echo $version >> $GITHUB_OUTPUT
-          echo "no error from GITHUB_OUTPUT"
+          # echo "::extract name=version::$version"
+          # echo "no error from ::extract"
+          # echo $version >> $GITHUB_OUTPUT
+          # echo "no error from GITHUB_OUTPUT"
   
   trigger_test:
     name: Echo output
