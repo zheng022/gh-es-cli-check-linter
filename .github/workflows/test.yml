@@ -45,6 +45,7 @@ jobs:
   
   trigger_test:
     name: Echo output
+    runs-on: ubuntu-latest
     steps:
     - name: echo output
       run: echo "${{ needs.issue_commented.outputs.ghes-version }}"
