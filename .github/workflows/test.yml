@@ -10,7 +10,6 @@ jobs:
     if: ${{ !github.event.issue.pull_request && contains(github.event.comment.body, 'uploaded!') && contains(github.event.issue.labels.*.name, 'testing')}}
     outputs:
       ghes-version: ${{ steps.extract.outputs.version }}
-      vhd-url: ${{ steps.extract.outputs.vhd-url }}
     runs-on: ubuntu-latest
     steps:
       - name: Extract version and image url
@@ -18,5 +17,6 @@ jobs:
         env:
           ISSUE_BODY: ${{ github.event.issue.body }}
         run: |
-          echo "version=$(echo \"$ISSUE_BODY\" | grep "The latest build is" | grep -oP '\b\d+\.\d+\.\d+(\.pre|\.gm|\.rc)\d+\b' | awk '{print $1}')" >> $GITHUB_OUTPUT
-          echo "vhd-url=$(echo \"$ISSUE_BODY\" | grep -oP 'azure -dynamic\.vhd \| https?://\S+' | awk '{print $4}')" >> $GITHUB_OUTPUT
+          version=$(echo \"$ISSUE_BODY\" | grep "The latest build is" | grep -oP '\b\d+\.\d+\.\d+(\.pre|\.gm|\.rc)\d+\b' | awk '{print $1}')
+          echo $version
+          echo $version >> $GITHUB_OUTPUT
