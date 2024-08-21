@@ -24,9 +24,9 @@ jobs:
           else
               echo "The string contains other characters."
           fi
-          version=$(echo "$version" | tr -cd 'a-z0-9.')
-          echo $version
-          echo $version >> $GITHUB_OUTPUT
+          cleaned_version=$(echo "$version" | tr -cd 'a-z0-9.')
+          echo $cleaned_version
+          echo $cleaned_version >> $GITHUB_OUTPUT
 
           
 
