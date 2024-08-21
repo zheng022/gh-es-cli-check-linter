@@ -17,14 +17,15 @@ jobs:
         env:
           ISSUE_BODY: ${{ github.event.issue.body }}
         run: |
-          version=$(echo \"$ISSUE_BODY\" | grep "The latest build is" | grep -oP '\b\d+\.\d+\.\d+(\.pre|\.gm|\.rc)\d+\b' | awk '{print $1}' | tr -cd 'a-z0-9.')
+          version=$(echo \"$ISSUE_BODY\" | grep -oP '\b\d+\.\d+\.\d+(\.pre|\.gm|\.rc)\d+\b' | head -n 1 | tr -cd 'a-z0-9.')
           echo $version
           if [[ "$version" =~ ^[a-zA-Z0-9.]+$ ]]; then
               echo "The string contains only alphabets, numbers, and dots."
           else
               echo "The string contains other characters."
-              version=$(echo "$version" | tr -cd 'a-z0-9.')
           fi
+          version=$(echo "$version" | tr -cd 'a-z0-9.')
+          echo $version
           echo $version >> $GITHUB_OUTPUT
 
           
