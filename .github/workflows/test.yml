@@ -18,7 +18,7 @@ jobs:
           ISSUE_BODY: ${{ github.event.issue.body }}
         run: |
           echo $ISSUE_BODY | grep -oP '\b\d+\.\d+\.\d+(\.pre|\.gm|\.rc)\d+\b' | head -n 1 
-          version=$(echo ${{ github.event.issue.body }} | grep -oP '\b\d+\.\d+\.\d+(\.pre|\.gm|\.rc)\d+\b' | head -n 1)
+          version=$(echo "${{ github.event.issue.body }}" | grep -oP '\b\d+\.\d+\.\d+(\.pre|\.gm|\.rc)\d+\b' | head -n 1)
           echo $version
   
           
