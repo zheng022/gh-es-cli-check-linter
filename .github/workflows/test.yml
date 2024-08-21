@@ -21,26 +21,16 @@ jobs:
           version=$(echo $ISSUE_BODY | grep -oP '\b\d+\.\d+\.\d+(\.pre|\.gm|\.rc)\d+\b' | head -n 1)
           echo $version
 
-          v="3.14.0.gm2"
-          if [[ "$version" != "$v" ]]; then
-              echo "The strings are not equal."
-          else
-              echo "The strings are equal."
-          fi
+          v='3.14.0.gm2'
 
           echo $v >> $GITHUB_OUTPUT
 
           echo "no error from v"
+
+          echo "::extract name=iversion::3.14.0.gm2"
+
+          echo "no error from version::3.14.0.gm2"
           
-          # Check for leading spaces or newlines
-          if [[ "$version" != "${version#"${version%%[![:space:]]*}"}" ]]; then
-              echo "The string has leading spaces or newlines."
-          fi
-          
-          # Check for trailing spaces or newlines
-          if [[ "$version" != "${version%"${version##*[![:space:]]}"}" ]]; then
-              echo "The string has trailing spaces or newlines."
-          fi
           echo "::extract name=version::$version"
   
   trigger_test:
