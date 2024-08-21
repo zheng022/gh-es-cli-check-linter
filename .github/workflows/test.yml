@@ -25,6 +25,8 @@ jobs:
               echo "The string contains only alphabets, numbers, and dots."
           else
               echo "The string contains other characters."
+              other_chars=$(echo "$version" | tr -d 'a-zA-Z0-9.' | tr -d '\n' | fold -w1 | sort -u | tr -d '\n')
+              echo "Other characters: $other_chars"
           fi
 
           v='3.14.0.gm2'
