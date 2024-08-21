@@ -17,29 +17,28 @@ jobs:
         env:
           ISSUE_BODY: ${{ github.event.issue.body }}
         run: |
-          echo $ISSUE_BODY | grep -oP '\b\d+\.\d+\.\d+(\.pre|\.gm|\.rc)\d+\b' | head -n 1 
-          version=$(echo $ISSUE_BODY | grep -oP '\b\d+\.\d+\.\d+(\.pre|\.gm|\.rc)\d+\b' | head -n 1)
-          echo $version
+          echo "version=$(echo \"$ISSUE_BODY\" | grep "The latest build is" | grep -oP '\b\d+\.\d+\.\d+(\.pre|\.gm|\.rc)\d+\b' | awk '{print $1}' | tr -cd 'a-z0-9.')" >> $GITHUB_OUTPUT
 
-          if [[ "$string" =~ ^[a-zA-Z0-9.]+$ ]]; then
-              echo "The string contains only alphabets, numbers, and dots."
-          else
-              echo "The string contains other characters."
-              other_chars=$(echo "$version" | tr -d 'a-zA-Z0-9.' | tr -d '\n' | fold -w1 | sort -u | tr -d '\n')
-              echo "Other characters: $other_chars"
-          fi
+          # version=$(echo $ISSUE_BODY | grep -oP '\b\d+\.\d+\.\d+(\.pre|\.gm|\.rc)\d+\b' | head -n 1)
+          # echo $version
+
+          # if [[ "$string" =~ ^[a-zA-Z0-9.]+$ ]]; then
+          #     echo "The string contains only alphabets, numbers, and dots."
+          # else
+          #     echo "The string contains other characters."
+          #     other_chars=$(echo "$version" | tr -d 'a-zA-Z0-9.' | tr -d '\n' | fold -w1 | sort -u | tr -d '\n')
+          #     echo "Other characters: $other_chars"
+          # fi
           
-          cleaned_version=$(echo "$version" | tr -cd 'a-z0-9.')
-          echo $cleaned_version
-          echo "::extract name=version::$cleaned_version"
+          # cleaned_version=$(echo "$version" | tr -cd 'a-z0-9.')
+          # echo $cleaned_version
+          # echo "::extract name=version::$cleaned_version"
 
-          echo "no error from cleaned_version"
+          # echo "no error from cleaned_version"
 
-          echo $cleaned_version >> $GITHUB_OUTPUT
+          # echo $cleaned_version >> $GITHUB_OUTPUT
 
-          echo "no error from GITHUB_OUTPUT"
-
-          echo "::extract name=version::$version"
+          # echo "no error from GITHUB_OUTPUT"
   
   trigger_test:
     name: Echo output
