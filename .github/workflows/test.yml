@@ -41,4 +41,11 @@ jobs:
           if [[ "$version" != "${version%"${version##*[![:space:]]}"}" ]]; then
               echo "The string has trailing spaces or newlines."
           fi
-          echo $version >> $GITHUB_OUTPUT
+          echo "::extract name=version::$version"
+  
+  trigger_test:
+    name: Echo output
+    steps:
+    - name: echo output
+      run: echo "${{ needs.issue_commented.outputs.ghes-version }}"
+          
