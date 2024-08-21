@@ -29,6 +29,9 @@ jobs:
           fi
 
           echo $v >> $GITHUB_OUTPUT
+
+          echo "no error from v"
+          
           # Check for leading spaces or newlines
           if [[ "$version" != "${version#"${version%%[![:space:]]*}"}" ]]; then
               echo "The string has leading spaces or newlines."
