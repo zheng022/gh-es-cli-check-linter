@@ -17,7 +17,7 @@ jobs:
         env:
           ISSUE_BODY: ${{ github.event.issue.body }}
         run: |
-          echo "version=$(echo '${{ github.event.issue.body }}' | grep "The latest build is" | grep -oP '\b\d+\.\d+\.\d+(\.pre|\.gm|\.rc)\d+\b' | awk '{print $1}')" >> $GITHUB_OUTPUT
+          echo "3.14.2.gm1" >> $GITHUB_OUTPUT
           # version=$(echo '${{ github.event.issue.body }}' | grep -oP '\b\d+\.\d+\.\d+(\.pre|\.gm|\.rc)\d+\b' | head -n 1)
           # echo $version
   
