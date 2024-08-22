@@ -17,19 +17,5 @@ jobs:
         env:
           ISSUE_BODY: ${{ github.event.issue.body }}
         run: |
-          echo "3.14.2.gm1" >> $GITHUB_OUTPUT
-          # version=$(echo '${{ github.event.issue.body }}' | grep -oP '\b\d+\.\d+\.\d+(\.pre|\.gm|\.rc)\d+\b' | head -n 1)
-          # echo $version
-  
-          
-          # echo "::extract name=version::$version"
-          # echo "no error from ::extract"
-          # echo $version >> $GITHUB_OUTPUT
-          # echo "no error from GITHUB_OUTPUT"
-  
-  trigger_test:
-    name: Echo output
-    runs-on: ubuntu-latest
-    steps:
-    - name: echo output
-      run: echo "${{ needs.issue_commented.outputs.ghes-version }}"
+          version=$(echo "$ISSUE_BODY" | grep "The latest build is" | grep -oP '\b\d+\.\d+\.\d+(\.pre|\.gm|\.rc)\d+\b' | awk '{print $1}')
+          echo "version=$version" >> $GITHUB_OUTPUT
