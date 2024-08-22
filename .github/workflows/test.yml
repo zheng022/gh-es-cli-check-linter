@@ -1,0 +1,20 @@
+name: Upgrade test (github/github-load-test)
+on:
+  workflow_dispatch:
+  issue_comment:
+
+jobs:
+  issue_commented:
+    # This job only runs for issue comments
+    name: Issue comment
+    if: ${{ !github.event.issue.pull_request && contains(github.event.comment.body, 'uploaded!') && contains(github.event.issue.labels.*.name, 'testing')}}
+    outputs:
+      ghes-version: ${{ steps.extract.outputs.version }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Extract version
+        env:
+          ISSUE_BODY: ${{ github.event.issue.body }}
+        run: |
+          version=$(echo "$ISSUE_BODY" | grep "The latest build is" | grep -oP '\b\d+\.\d+\.\d+(\.pre|\.gm|\.rc)\d+\b' | awk '{print $1}')
+          echo "version=$version" >> $GITHUB_OUTPUT
